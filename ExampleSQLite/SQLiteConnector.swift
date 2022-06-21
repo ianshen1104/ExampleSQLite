@@ -5,10 +5,12 @@
 //  Created by Ian Shen on 6/21/22.
 //
 
+//  Credit to: https://github.com/itisjoe/swiftgo_files/tree/master/database/sqlite/ExSQLite/ExSQLite
+
 import Foundation
 import SQLite3
 
-class SQLiteConnect {
+class SQLiteConnector {
 
     var db: OpaquePointer? = nil
 

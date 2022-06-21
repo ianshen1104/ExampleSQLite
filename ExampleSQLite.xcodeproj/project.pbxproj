@@ -14,7 +14,7 @@
 		0E10E1B1286161B9008869BC /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 0E10E1B0286161B9008869BC /* Assets.xcassets */; };
 		0E10E1B4286161B9008869BC /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0E10E1B2286161B9008869BC /* LaunchScreen.storyboard */; };
 		0E10E1BD286162B0008869BC /* libsqlite3.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 0E10E1BC28616256008869BC /* libsqlite3.tbd */; };
-		0E10E1C128616742008869BC /* SQLiteConnect.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E10E1C028616742008869BC /* SQLiteConnect.swift */; };
+		0E10E1C128616742008869BC /* SQLiteConnector.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E10E1C028616742008869BC /* SQLiteConnector.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -28,7 +28,7 @@
 		0E10E1B5286161B9008869BC /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		0E10E1BC28616256008869BC /* libsqlite3.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libsqlite3.tbd; path = usr/lib/libsqlite3.tbd; sourceTree = SDKROOT; };
 		0E10E1BF2861630E008869BC /* BridgeHeader.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BridgeHeader.h; sourceTree = "<group>"; };
-		0E10E1C028616742008869BC /* SQLiteConnect.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SQLiteConnect.swift; sourceTree = "<group>"; };
+		0E10E1C028616742008869BC /* SQLiteConnector.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SQLiteConnector.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -71,7 +71,7 @@
 				0E10E1B2286161B9008869BC /* LaunchScreen.storyboard */,
 				0E10E1B5286161B9008869BC /* Info.plist */,
 				0E10E1BF2861630E008869BC /* BridgeHeader.h */,
-				0E10E1C028616742008869BC /* SQLiteConnect.swift */,
+				0E10E1C028616742008869BC /* SQLiteConnector.swift */,
 			);
 			path = ExampleSQLite;
 			sourceTree = "<group>";
@@ -157,7 +157,7 @@
 			files = (
 				0E10E1AC286161B7008869BC /* ViewController.swift in Sources */,
 				0E10E1A8286161B7008869BC /* AppDelegate.swift in Sources */,
-				0E10E1C128616742008869BC /* SQLiteConnect.swift in Sources */,
+				0E10E1C128616742008869BC /* SQLiteConnector.swift in Sources */,
 				0E10E1AA286161B7008869BC /* SceneDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
