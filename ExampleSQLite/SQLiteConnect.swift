@@ -81,4 +81,50 @@ class SQLiteConnect {
 
         return statement!
     }
+
+    func update(_ tableName: String, cond: String?, rowInfo: [String:String]) -> Bool {
+            var statement: OpaquePointer? = nil
+            var sql = "update \(tableName) set "
+
+            // row info
+            var info: [String] = []
+            for (k, v) in rowInfo {
+                info.append("\(k) = \(v)")
+            }
+            sql += info.joined(separator: ",")
+
+            // condition
+            if let condition = cond {
+                sql += " where \(condition)"
+            }
+
+            if sqlite3_prepare_v2(self.db, sql.cString(using: String.Encoding.utf8), -1, &statement, nil) == SQLITE_OK {
+                if sqlite3_step(statement) == SQLITE_DONE {
+                    return true
+                }
+                sqlite3_finalize(statement)
+            }
+
+            return false
+
+        }
+
+    func delete(_ tableName: String, cond: String?) -> Bool {
+        var statement: OpaquePointer? = nil
+        var sql = "delete from \(tableName)"
+
+        // condition
+        if let condition = cond {
+            sql += " where \(condition)"
+        }
+
+        if sqlite3_prepare_v2(self.db, sql.cString(using: String.Encoding.utf8), -1, &statement, nil) == SQLITE_OK {
+            if sqlite3_step(statement) == SQLITE_DONE {
+                return true
+            }
+            sqlite3_finalize(statement)
+        }
+
+        return false
+    }
 }
