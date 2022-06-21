@@ -10,12 +10,12 @@ import SQLite3
 
 class SQLiteConnect {
 
-    var db : OpaquePointer? = nil
+    var db: OpaquePointer? = nil
 
-    let sqlitePath : String
+    let sqlitePath: String
 
     // failable init
-    init?(path :String) {
+    init?(path: String) {
         sqlitePath = path
         db = self.openDatabase(sqlitePath)
 
@@ -25,7 +25,7 @@ class SQLiteConnect {
     }
 
     // connect to database
-    func openDatabase(_ path :String) -> OpaquePointer? {
+    func openDatabase(_ path: String) -> OpaquePointer? {
         var dbConnect : OpaquePointer? = nil
         if sqlite3_open(path, &dbConnect) == SQLITE_OK {
             print("Successfully opened database \(path)")
@@ -36,7 +36,7 @@ class SQLiteConnect {
         }
     }
 
-    func createTable(_ tableName :String, columnsInfo :[String]) -> Bool {
+    func createTable(_ tableName: String, columnsInfo: [String]) -> Bool {
         let sql = "create table if not exists \(tableName) "
                 + "(\(columnsInfo.joined(separator: ",")))"
 
@@ -46,4 +46,39 @@ class SQLiteConnect {
         return false
     }
 
+    func insert(_ tableName: String, rowInfo: [String:String]) -> Bool {
+
+        var statement : OpaquePointer? = nil //Pointer used to retrieve statement sent back by sqlite
+
+        let sql = "insert into \(tableName) "
+                + "(\(rowInfo.keys.joined(separator: ","))) "
+                + "values (\(rowInfo.values.joined(separator: ",")))"
+
+        // 3rd input is maximum number of Bytes that can be read by db. set to -1 if unlimited
+        if sqlite3_prepare_v2(self.db, sql.cString(using: String.Encoding.utf8), -1, &statement, nil) == SQLITE_OK {
+            if sqlite3_step(statement) == SQLITE_DONE {
+                return true
+            }
+            sqlite3_finalize(statement) //Must call finalize to release reference to &statement to avoid memory leakage
+        }
+
+        return false
+    }
+
+    func fetch(_ tableName: String, cond: String?, order: String?) -> OpaquePointer {
+        var statement: OpaquePointer? = nil
+        var sql = "select * from \(tableName)"
+        if let condition = cond {
+            sql += " where \(condition)"
+        }
+
+        if let orderBy = order {
+            sql += " order by \(orderBy)"
+        }
+
+        sqlite3_prepare_v2(
+            self.db, sql.cString(using: String.Encoding.utf8), -1, &statement, nil)
+
+        return statement!
+    }
 }
