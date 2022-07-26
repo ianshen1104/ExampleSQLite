@@ -117,22 +117,22 @@ class SQLiteConnector {
         }
 
     // Delete
-    func delete(_ tableName: String, cond: String?) -> Bool {
-        var statement: OpaquePointer? = nil
-        var sql = "delete from \(tableName)"
-
-        // condition
-        if let condition = cond {
-            sql += " where \(condition)"
-        }
-
-        if sqlite3_prepare_v2(self.db, sql.cString(using: String.Encoding.utf8), -1, &statement, nil) == SQLITE_OK {
-            if sqlite3_step(statement) == SQLITE_DONE {
-                return true
-            }
-            sqlite3_finalize(statement)
-        }
-
-        return false
-    }
+//    func delete(_ tableName: String, cond: String?) -> Bool {
+//        var statement: OpaquePointer? = nil
+//        var sql = "delete from \(tableName)"
+//
+//        // condition
+//        if let condition = cond {
+//            sql += " where \(condition)"
+//        }
+//
+//        if sqlite3_prepare_v2(self.db, sql.cString(using: String.Encoding.utf8), -1, &statement, nil) == SQLITE_OK {
+//            if sqlite3_step(statement) == SQLITE_DONE {
+//                return true
+//            }
+//            sqlite3_finalize(statement)
+//        }
+//
+//        return false
+//    }
 }
