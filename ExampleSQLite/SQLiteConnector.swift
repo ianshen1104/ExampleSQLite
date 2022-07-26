@@ -27,6 +27,7 @@ class SQLiteConnector {
     }
 
     // connect to database
+    // To Connect to DB
     func openDatabase(_ path: String) -> OpaquePointer? {
         var dbConnect : OpaquePointer? = nil
         if sqlite3_open(path, &dbConnect) == SQLITE_OK {
@@ -38,6 +39,7 @@ class SQLiteConnector {
         }
     }
 
+    // Create Table
     func createTable(_ tableName: String, columnsInfo: [String]) -> Bool {
         let sql = "create table if not exists \(tableName) "
                 + "(\(columnsInfo.joined(separator: ",")))"
@@ -48,6 +50,7 @@ class SQLiteConnector {
         return false
     }
 
+    // Insert
     func insert(_ tableName: String, rowInfo: [String:String]) -> Bool {
 
         var statement : OpaquePointer? = nil //Pointer used to retrieve statement sent back by sqlite
@@ -67,23 +70,25 @@ class SQLiteConnector {
         return false
     }
 
-    func fetch(_ tableName: String, cond: String?, order: String?) -> OpaquePointer {
-        var statement: OpaquePointer? = nil
-        var sql = "select * from \(tableName)"
-        if let condition = cond {
-            sql += " where \(condition)"
-        }
+    // Fetch
+//    func fetch(_ tableName: String, cond: String?, order: String?) -> OpaquePointer {
+//        var statement: OpaquePointer? = nil
+//        var sql = "select * from \(tableName)"
+//        if let condition = cond {
+//            sql += " where \(condition)"
+//        }
+//
+//        if let orderBy = order {
+//            sql += " order by \(orderBy)"
+//        }
+//
+//        sqlite3_prepare_v2(
+//            self.db, sql.cString(using: String.Encoding.utf8), -1, &statement, nil)
+//
+//        return statement!
+//    }
 
-        if let orderBy = order {
-            sql += " order by \(orderBy)"
-        }
-
-        sqlite3_prepare_v2(
-            self.db, sql.cString(using: String.Encoding.utf8), -1, &statement, nil)
-
-        return statement!
-    }
-
+    // Update
     func update(_ tableName: String, cond: String?, rowInfo: [String:String]) -> Bool {
             var statement: OpaquePointer? = nil
             var sql = "update \(tableName) set "
@@ -111,6 +116,7 @@ class SQLiteConnector {
 
         }
 
+    // Delete
     func delete(_ tableName: String, cond: String?) -> Bool {
         var statement: OpaquePointer? = nil
         var sql = "delete from \(tableName)"
